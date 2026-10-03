@@ -10,32 +10,62 @@ char assetCondition[50][50];
 int assetCount = 0;
 
 void addAsset() {
+    if (assetCount >= 50) {
+        printf("Error: Cannot add more than 50 assets.\n");
+        return;
+    }
+
     printf("Enter Asset ID: ");
     scanf("%d", &assetID[assetCount]);
     while (getchar() != '\n');
 
-    printf("Enter Asset Name: ");
-    fgets(assetName[assetCount], sizeof(assetName[assetCount]), stdin);
-    assetName[assetCount][strcspn(assetName[assetCount], "\n")] = '\0';
+    do {
+         printf("Enter Asset Name: ");
+         fgets(assetName[assetCount], sizeof(assetName[assetCount]), stdin);
+         assetName[assetCount][strcspn(assetName[assetCount], "\n")] = '\0';
+         if (strlen(assetName[assetCount]) == 0) {
+            printf("Asset Name cannot left blank. please try again.\n");
+         }
+        } while (strlen(assetName[assetCount]) == 0);
 
-    printf("Enter Asset Type: ");
-    fgets(assetType[assetCount], sizeof(assetName[assetCount]), stdin);
-    assetType[assetCount][strcspn(assetType[assetCount], "\n")] = '\0';
+        do {
+            printf("Enter Asset Type: ");
+            fgets(assetType[assetCount], sizeof(assetName[assetCount]), stdin);
+            assetType[assetCount][strcspn(assetType[assetCount], "\n")] = '\0';
+            if (strlen(assetType[assetCount]) == 0) {
+                printf("Asset Type cannot be left blank. please try again\n");
+            }
+        } while (strlen(assetType[assetCount]) == 0);
 
-    printf("Enter Purchase Value: ");
-    scanf("%lf", &purchaseValue[assetCount]);
-    whilen(getchar() != '\n');
+        do {
+            printf("Enter Purchase Value: ");
+            scanf("%lf", &purchaseValue[assetCount]);
+            whilen(getchar() != '\n');
+            if (purchaseValue[assetCount] < 0) {
+                printf("Validation Error: Purchase Value cannot be negative. Try again.\n");
+            }
+        } while (purchaseValue[assetCount] < 0);
 
-    printf("Enter Department: ");
-    fgets(assetDepartment[assetCount], sizeof(assetDepartment[assetCount]), stdin);
-    assetDepartment[assetCount][strcspn(assetDepartment[assetCount], "\n")] = '\0';
+        do {
+            printf("Enter Department: ");
+            fgets(assetDepartment[assetCount], sizeof(assetDepartment[assetCount]), stdin);
+            assetDepartment[assetCount][strcspn(assetDepartment[assetCount], "\n")] = '\0';
+            if (strlen(assetDepartment[assetCount]) == 0) {
+                prinf("Department cannot be left blank. Pleease try again.\n");
+            }
+        } while(assetDepartment[assetCount] == 0);
 
-    printf("Enter Condition: ");
-    fgets(assetCondition[assetCount], sizeof(assetCondition[assetCount]), stdin);
-    assetCondition[assetCount][strcspn(assetCondition[assetCount], "\n")] = '\0';
+        do {
+            printf("Enter Condition: ");
+            fgets(assetCondition[assetCount], sizeof(assetCondition[assetCount]), stdin);
+            assetCondition[assetCount][strcspn(assetCondition[assetCount], "\n")] = '\0';
+            if (strlen(assetCondition[assetCount]) == 0) {
+                printf("Condition cannot be left blank. please try again.\n");
+            }
+        } while (assetCondition[assetCount] == 0);
 
-    assetCount++;
-    printf("Asset added successfully!\n");
+        assetCount++;
+        printf("Asset added successfully!\n");
 }
 
 void displayALLAssets() {
